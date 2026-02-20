@@ -12,6 +12,7 @@ BASE_URL = os.getenv("OPENROUTER_BASE_URL",
 
 
 def main():
+    # Parse command line arguments after -p ""
     p = argparse.ArgumentParser()
     p.add_argument("-p", required=True)
     args = p.parse_args()
@@ -19,10 +20,15 @@ def main():
     if not API_KEY:
         raise RuntimeError("OPENROUTER_API_KEY is not set")
 
+    # Initialize OpenAI client
     client = OpenAI(api_key=API_KEY, base_url=BASE_URL)
+
+    # Keep a msgs array to store history
     msgs = [{"role": "user", "content": args.p}]
 
+    # Agent loop
     while True:
+        # openai chat function
         chat = client.chat.completions.create(
             model="anthropic/claude-haiku-4.5",
             messages=msgs,
@@ -91,21 +97,22 @@ def main():
         # You can use print statements as follows for debugging, they'll be visible when running tests.
         print("Logs from your program will appear here!", file=sys.stderr)
 
-        # TODO: Uncomment the following line to pass the first stage
-
         msgs.append({
             "role": "assistant",
             "content": chat.choices[0].message.content,
             "tool_calls": chat.choices[0].message.tool_calls,
         })
 
+        # Check if any tool is specified in response
         if chat.choices[0].message.tool_calls and len(chat.choices[0].message.tool_calls) > 0:
             for tool_call in chat.choices[0].message.tool_calls:
                 function_name = tool_call.function.name
                 arguments = tool_call.function.arguments
 
+                # Use pythons json library to retrieve destructured elements
                 parsed_args = json.loads(arguments)
 
+                # Write tool - write content to a file
                 if function_name == "Write":
                     file_path = parsed_args["file_path"]
                     content = parsed_args["content"]
@@ -117,6 +124,7 @@ def main():
                             "content": content
                         })
 
+                # Read tool - read file contents
                 elif function_name == "Read":
                     file_path = parsed_args["file_path"]
                     with open(file_path, "r") as file:
@@ -127,6 +135,7 @@ def main():
                             "content": content
                         })
 
+                # Bash - terminal commands
                 elif function_name == "Bash":
                     command = parsed_args["command"]
 
