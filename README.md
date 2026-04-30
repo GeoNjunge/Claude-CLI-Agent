@@ -6,7 +6,7 @@ This project explores **autonomous AI agents** that integrate **LLMs with extern
 
 ---
 
-## 🚀 Project Overview
+## Project Overview
 
 Claude-CLI-Agent demonstrates:
 
@@ -19,7 +19,7 @@ It is implemented as a **single Python CLI script** leveraging OpenAI Claude API
 
 ---
 
-## 🧩 Features (Mapped to Code)
+## Features (Mapped to Code)
 
 | Feature                     | How it works in code                                                            |
 | --------------------------- | ------------------------------------------------------------------------------- |
@@ -33,7 +33,7 @@ It is implemented as a **single Python CLI script** leveraging OpenAI Claude API
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ```text
 User Prompt
@@ -59,7 +59,7 @@ User Prompt
 
 ---
 
-## 🔧 Installation
+## Installation
 
 1. Clone the repository:
 
@@ -91,7 +91,7 @@ export OPENROUTER_BASE_URL="https://openrouter.ai/api/v1"  # optional, default i
 
 ---
 
-## ⚡ How to Run
+## How to Run
 
 ```bash
 python app/main.py -p "List all files in this directory"
@@ -113,7 +113,7 @@ Claude-CLI-Agent: Running `Write` -> success
 
 ---
 
-## 🧠 Key Learnings
+## Key Learnings
 
 - Integrating LLMs with **tool-based actions**.
 - Maintaining **conversation context** for multi-step reasoning.
@@ -123,7 +123,7 @@ Claude-CLI-Agent: Running `Write` -> success
 
 ---
 
-## 💡 Future Work
+## Future Work
 
 - Add **multi-agent coordination** for more complex workflows.
 - Enhance **tool safety** checks (prevent dangerous commands).
@@ -132,6 +132,6 @@ Claude-CLI-Agent: Running `Write` -> success
 
 ---
 
-## 📝 License
+## License
 
 MIT — free to use, modify, and extend.
